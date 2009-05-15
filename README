@@ -1,0 +1,15 @@
+
+The package has reached a level of maturity that it becomes useful to
+advanced users of computers. A few features are still missing but some
+initial feedback is much welcomed to influence further directions of
+the development.
+
+Also I'd very much like to hear from authors of existing blood glucose
+level tools if they are interested to incorporate this tool for their
+work.  Such would spare me the effort to provide a graphical user
+interface myself.
+
+For more details about this package please refer to the package vignette.
+
+-- 
+   Steffen Moeller <steffen_moeller@gmx.de>  Sat, 23 May 2009 23:05:24 +0200
