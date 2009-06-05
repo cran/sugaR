@@ -51,6 +51,25 @@ prepareRData <- function (s=FALSE) {
     )
   )
 
+  myEvents<-list(
+    "20090426"=list(
+	list(t=u("11:30"),e="catheter",  plot=TRUE),
+	list(t=u("12:30"),e="don't show",plot=FALSE)
+     ),
+    "20090428"=list(
+	list(t=u("12:00"),e="catheter",plot=TRUE)
+     ),
+    "20090429"=list(
+	list(t=u("12:30"),e="catheter",plot=TRUE)
+     ),
+    "20090430"=list(
+	list(t=u("13:00"),e="catheter",plot=TRUE)
+     ),
+    "20090501"=list(
+	list(t=u("13:30"),e="catheter",plot=TRUE)
+     )
+  )
+
   # only dates with changes to the regular factors need to be noted
   myFactors<-list(
     "20090101"=matrix(
@@ -64,11 +83,11 @@ prepareRData <- function (s=FALSE) {
   )
 
   if (s) {
-    save(myGlucose,myIntake,myBasal,myActivities,myFactors,file="diabetesDiary.RData")
+    save(myGlucose,myIntake,myBasal,myActivities,myEvents,myFactors,file="diabetesDiary.RData")
   }
 
   invisible(list(myGlucose=myGlucose,
   		myIntake=myIntake,myBasal=myBasal,
-		myActivities=myActivities,myFactors=myFactors))
+		myActivities=myActivities,myEvents=myEvents,myFactors=myFactors))
 
 }

@@ -235,9 +235,8 @@ diabetes.property<-function(symbol,time,sugar,sugar.reference,insulin,insulin.re
 }
 
 # function to co-plot glucose and intake data
-plot.glucose<-function(	data.glucose,
-			data.intake=NULL,
-			data.activities=NULL,
+plot.glucose<-function(	data.glucose, data.intake=NULL,
+			data.activities=NULL, data.events=NULL,
 			data.factors=NULL,
 			col=rainbow,legend=TRUE,
 			threshold.low=80, threshold.high=140,
@@ -333,25 +332,57 @@ plot.glucose<-function(	data.glucose,
   }
   
   # Presentation of activity data
-  if (!is.null(data.activities))
-   for(i in 1:length(data.glucose)) {
-    dayId<-names(data.glucose)[i]
-    activities<-data.activities[[dayId]]
-    if(is.null(activities)) {
-      if (debug) {
-        cat(paste("No activity data found for day '",dayId,"'.\n",sep=""))
+  if (!is.null(data.activities)) {
+    for(i in 1:length(data.glucose)) {
+      dayId<-names(data.glucose)[i]
+      activities<-data.activities[[dayId]]
+      if(is.null(activities)) {
+        if (debug) {
+          cat(paste("No activity data found for day '",dayId,"'.\n",sep=""))
+        }
+      }
+      else {
+        lapply(activities,
+               function(A){
+                 l<-c(A[["f"]],glucose.level.at.on(A[["f"]],i))
+                 times<-data.glucose[[i]][,1]
+                 times.to.be.added<-(times>A[["f"]])&(times<A[["t"]])
+                 l<-rbind(l,data.glucose[[i]][times.to.be.added,])
+                 l<-rbind(l,c(A[["t"]],glucose.level.at.on(A[["t"]],i)))
+                 if (FALSE & debug) {cat("Points to connect for activity:\n"); print(l)}
+	         lines(l,lwd=(1*A[["a"]]),col=cols[i])
+               }
+        )
       }
     }
-    else {
-      lapply(activities,function(A){
-	l<-c(A[["f"]],glucose.level.at.on(A[["f"]],i))
-	times<-data.glucose[[i]][,1]
-	times.to.be.added<-(times>A[["f"]])&(times<A[["t"]])
-	l<-rbind(l,data.glucose[[i]][times.to.be.added,])
-	l<-rbind(l,c(A[["t"]],glucose.level.at.on(A[["t"]],i)))
-	if (FALSE & debug) {cat("Points to connect for activity:\n"); print(l)}
-	lines(l,lwd=(1*A[["a"]]),col=cols[i])
-      })
+  }
+
+  # Presentation of event data
+  if (!is.null(data.events)) {
+    for(i in 1:length(data.glucose)) {
+      dayId<-names(data.glucose)[i]
+      events<-data.events[[dayId]]
+      if(is.null(events)) {
+        if (debug) {
+          cat(paste("No event data found for day '",dayId,"'.\n",sep=""))
+        }
+      }
+      else {
+        lapply(events,
+               function(E){
+                 if (is.null(E[["plot"]]) || TRUE == E[["plot"]]) {
+                   text(E[["t"]],
+                        glucose.level.at.on(E[["t"]],i),
+                        E[["e"]],
+                        pos=4,       # right of the coordinates
+                        cex=0.6,     # be smaller than other writings
+			offset=0.25, # be close to the real position
+                        col=cols[i]  # use colour of day
+                   )
+                 }
+               }
+        )
+      }
     }
   }
     
@@ -448,7 +479,7 @@ check.ordered.names<-function(l) {
 
 # key routine which the user will invoke directly
 sugar.over.time <- function(data.glucose,
-			  data.basal=NULL,data.intake=NULL,data.activities=NULL,data.factors=NULL,
+			  data.basal=NULL,data.intake=NULL,data.activities=NULL,data.factors=NULL,data.events=NULL,
 			  symbol="thermometer", col=rainbow,
                           represent.carbohydrates.by.area=TRUE,
                           threshold.low=80, threshold.high=140,
@@ -507,7 +538,7 @@ sugar.over.time <- function(data.glucose,
 
   plot.glucose(data.glucose=data.glucose,
                data.intake=data.intake,
-	       data.activities=data.activities,
+	       data.activities=data.activities, data.events=data.events,
 	       data.factors=data.factors,
 	       represent.carbohydrates.by.area=represent.carbohydrates.by.area,
                threshold.low=threshold.low, threshold.high=threshold.high,
@@ -523,5 +554,8 @@ sugar.over.time <- function(data.glucose,
   par(op)
 }
 
-if (FALSE) 
-    sugar.over.time(data.glucose=myGlucose, data.basal=myBasal, data.intake=myIntake, data.activities=myActivities, data.factors=myFactors, symbol="thermometer", labels.language="german",labels.type="kids",debug=FALSE)			 
+if (FALSE) {
+    #sugar.over.time(data.glucose=myGlucose, data.basal=myBasal, data.intake=myIntake, data.activities=myActivities, data.events=myEvents, data.factors=myFactors, symbol="thermometer", labels.language="german",labels.type="kids",debug=FALSE)			 
+    d<-prepareRData()
+    sugar.over.time(data.glucose=d$myGlucose, data.basal=d$myBasal, data.intake=d$myIntake, data.activities=d$myActivities, data.events=d$myEvents, data.factors=d$myFactors, symbol="thermometer", labels.language="german",labels.type="kids",debug=FALSE)			 
+}

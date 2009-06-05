@@ -1,6 +1,6 @@
 
 all:
-	@echo "This makefile only serves as a wrapper for the 'install' and 'check' R commands."
+	@echo "This makefile only serves as a wrapper for the 'install', 'build' and 'check' R commands."
 
 build:	clean
 	R CMD build .

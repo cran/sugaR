@@ -9,7 +9,8 @@ carbohydrate uptake (spots with area or radius indicating amount), insulin dosag
 physical activity (width of lines) and the basal rate (optional for insulin pump carriers).
 }
 \usage{
-sugar.over.time(data.glucose,data.basal=NULL,data.intake=NULL,data.activities=NULL,data.factors=NULL,
+sugar.over.time(data.glucose,data.basal=NULL,data.intake=NULL,
+		data.activities=NULL,data.factors=NULL,data.events=NULL,
 		symbol="thermometer",col=rainbow,
                 represent.carbohydrates.by.area=TRUE,
                 threshold.low=80, threshold.high=140,
@@ -21,8 +22,8 @@ sugar.over.time(data.glucose,data.basal=NULL,data.intake=NULL,data.activities=NU
 \item{data.glucose}{list of days with (nx2) matrix of (time, glucose level) pairs}
 \item{data.basal}{list of days with (nx2) matrix of (duration, units insulin per hour) pairs}
 \item{data.intake}{list of days with (nx4) matrix of (time,carbohydrates, units insulin for food, units insulin to correct hyperglucemiar) quadruples}
-\item{data.activities}{list of days with list of list with f=start of activity, t=end of activity, a=degree of activity (a number from 1 (weak) to 5 (strong)), c=free text as comment.
-}
+\item{data.activities}{list of days with list of list with f=start of activity, t=end of activity, a=degree of activity (a number from 1 (weak) to 5 (strong)), c=free text as comment}
+\item{data.events}{list of days with list of list with t=time of event, e=the event itself, plot=binary indicating if the event shall be shown in the plot}
 \item{data.factors}{list of days at which factors were changed. Every list entry is a (nx2) matrix of (time,factor) pairs.}
 \item{symbol}{The symbol to be used for displaying glucose data. The default are thermometers, which allow the co-presentation of insulin dosage. An alternative are circles. Either represents the amount of carbohydrate intake by the size of the symbol.}
 \item{col}{function emitting a series of colors to help distinguishing days}

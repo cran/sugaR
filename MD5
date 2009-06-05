@@ -1,0 +1,16 @@
+1e3f6568040ad221b61b3da1fc894c8c *DESCRIPTION
+1d85dae294fee210d8e32f11f579b0eb *LICENSE
+7c0d1f58779c4e61b6a110cb89e3b5e6 *Makefile
+1c2f704b173b8814fe2e8c6980757270 *NAMESPACE
+ce751c135d87c32448124ef147694463 *R/data.R
+6475e27299c5f2f571c045c44d587cda *R/diabetes.R
+0dff157d5fe85deeccb47a80f4e4e268 *README
+1ee6cd202a1254470f07f8f190f39cac *data/diabetesDiary.RData
+f19a5a8744f7bddcdc28da1e68872f2c *demo/00Index
+65e46ed3d9caf1b81ae91dabd4ea6671 *demo/main.R
+d9e55be010554c946c603de613ec748d *inst/doc/sugaR.Rnw
+3585397e2a36e1b5135c274e79629413 *inst/doc/sugaR.pdf
+de164b8370f7ee68ab3525d07c191ed8 *man/diabetesDiary.Rd
+dbfce5c0d62f4d853614d0dca983e142 *man/h.Rd
+dad7e9aa31cc26ab55d0657e4913c970 *man/sugar.over.time.Rd
+7febee1d49be31a3b8c8ebbc3961b817 *man/u.Rd

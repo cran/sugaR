@@ -2,14 +2,20 @@
 \Rdversion{1.1}
 \docType{data}
 \alias{myGlucose}
-\alias{myActivities}
-\alias{myBasal}
 \alias{myIntake}
+\alias{myActivities}
+\alias{myEvents}
+\alias{myBasal}
 \alias{myFactors}
 \title{Example input for the sugar.over.time plot}
 \description{
 The input of data for glycose plots is rather tedious in today's implemention.
 To help with living examples, here an initial dataset.
+All kinds of data are represented as lists, for which every list element is
+representing a single day, which is also the name of the list entry,
+formatted as YYYYMMDD (in R to be formatted as "\%Y\%m\%d") with no separator.
+
+
 
 ## glucose data measured 
 myGlucose<-list(
@@ -54,6 +60,20 @@ myActivities<-list(
       list(f=u("18:00"),t=u("19:15"),a=2,c="walking the dog")
   )
 )
+
+## events are activities with no duration
+## these can be plotted and/or used to trigger the display
+## of data on a new line
+myEvents<-list(
+  "20090426"=list(
+      list(t=u("11:30"),e="catheter",  plot=TRUE),
+      list(t=u("12:30"),e="don't show",plot=FALSE)
+   ),
+  "20090428"=list(
+      list(t=u("12:00"),e="catheter",plot=TRUE)
+   )
+)
+
 
 ## only dates with changes to the regular factors need to be noted
 myFactors<-list(
